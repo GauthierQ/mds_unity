@@ -9,6 +9,7 @@ public enum Anims
     Run,
     Roll,
     Jump,
+    Top
 }
 
 // Structure de données pour définir une animation
