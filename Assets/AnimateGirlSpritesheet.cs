@@ -20,7 +20,6 @@ public class AnimateGirlSpritesheet : MonoBehaviour
         {
             transform.localRotation = Quaternion.Euler(0, 0, 0);
             animator.Play(Anims.Run);
-            transform.position += Vector3.right * speed * Time.deltaTime;
 
         }
         else if (Input.GetKey(KeyCode.LeftShift))
@@ -31,19 +30,16 @@ public class AnimateGirlSpritesheet : MonoBehaviour
         {
             transform.localRotation = Quaternion.Euler(0, 180, 0);
             animator.Play(Anims.Run);
-            transform.position += Vector3.left * speed * Time.deltaTime;
 
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
             animator.Play(Anims.Run);
-            transform.position += Vector3.down * speed * Time.deltaTime;
 
         }
         else if (Input.GetKey(KeyCode.UpArrow))
         {
             animator.Play(Anims.Top);
-            transform.position += Vector3.up * speed * Time.deltaTime;
 
         }
         else if (Input.GetKey(KeyCode.Space))
@@ -54,5 +50,6 @@ public class AnimateGirlSpritesheet : MonoBehaviour
         {
             animator.Play(Anims.Iddle);
         }
+
     }
 }

@@ -1,32 +1,35 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tracker : MonoBehaviour
-{
-    public GameObject Target;
+[ExecuteInEditMode]
+public class Tracker : MonoBehaviour {
 
-    public Vector2 DeadWindow;
+	public Transform target;
+	public Vector2 offset;
+	public float trackingDistance = 1f;
+	public float stiffness = 0.05f;
 
-    public float FollowSpeed = 0.02f;
-    private Rect _rect;
+	void Update () {
+		if (target == null) return;
 
-    private void OnDrawGizmos()
-    {    
-        Gizmos.DrawWireCube(_rect.center, _rect.size);
-    }
+		Vector3 targetPos = new Vector3 (
+			(target.position.x + offset.x),
+			(target.position.y + offset.y),
+			this.transform.position.z
+		);
 
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        _rect = new Rect((Vector2) transform.position - DeadWindow * 0.5f, DeadWindow);
-        if (!_rect.Contains(Target.transform.position))
-        {
-            var z = transform.position.z;
-            var nextPos = Vector3.Lerp(transform.position, Target.transform.position, 0.02f);
-            nextPos.z = z;
-            transform.position = nextPos;
-        }
-    }
+		if (stiffness == 1) {
+			this.transform.position = targetPos;
+			return;
+		}
+
+		Vector3 moveOffset = Vector3.zero;
+
+			if (Vector2.Distance (target.position, this.transform.position) > trackingDistance) {
+				moveOffset = (targetPos - new Vector3(this.transform.position.x, this.transform.position.y, 0)) * stiffness;
+		}
+
+		this.transform.position += new Vector3(moveOffset.x, moveOffset.y, 0);
+	}
 }
